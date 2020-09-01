@@ -8,10 +8,12 @@
       <div>
         <a href="javascript:;">
           <img src="../../../assets/logo.png" alt="" :style="{width: '50px', height: '50px',borderRadius:'25px',marginRight: '10px'}">
-          <span style="border-radius:25px" >{{nav.LOGO.title}}</span>
+          <span style="border-radius:25px" >我的管理系统</span>
+          <!-- {{nav.LOGO.title}} -->
         </a>
       </div>
     </div>
+    <!-- -->
     <el-menu
       :style="{width: (getCollapseState == false)?'200px':'64px'}"
       :default-active="String(activeNav)"
@@ -20,17 +22,19 @@
       :background-color="getAsideColor"
       :text-color="getATextColor"
       :active-text-color="getActiveColor"
-      :unique-opened="getDoubleOpen"
+      :unique-opened="getDoubleOpen" 
       :default-openeds="defaultOpen"
       ref="menu"
       router
     >
       <template v-for="(item, parentIndex) in nav.nav">
+
         <SideNav
           :item="item"
           :index="parentIndex"
           :state="getCollapseState"
           v-bind:key="parentIndex"
+          style="color:#fff"
         ></SideNav>
       </template>
     </el-menu>
@@ -60,7 +64,6 @@ export default {
     },
     ...mapGetters({
       getCollapseState: "CollapseState",
-
       getAsideColor: "AsideColor",
       getATextColor: "ATextColor",
       getActiveColor: "ActiveColor",
@@ -68,15 +71,17 @@ export default {
     })
   },
   created() {
+    console.log(this.getDoubleOpen)
     //获得导航的json数据
     Axios({
-      url: location.protocol + "/nav.json",
+      url: "https://18736871304.github.io/wei/dist/nav.json",
       method: "get"
     }).then(res => {
       //把导航数据存入vuex中
       this.$store.dispatch("setNavs", {
         nav: res.data.nav
       });
+      
       this.nav = res.data;
     });
   }
@@ -118,8 +123,9 @@ export default {
     font-size: 16px;
   }
 
-
-
+.el-submenu__icon-arrow,.el-icon-arrow-down{
+   color: #fff;
+}
   
 /* .aa {
   height: 60px;

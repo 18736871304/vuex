@@ -99,7 +99,7 @@ export default {
       if (command === "profile") {
         this.$router.push({
           path: "/profile"
-        });            
+        });
       } else if (command === "updatePass") {
         this.$router.push({
           path: "/updatePass"

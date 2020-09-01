@@ -8,7 +8,7 @@
     <div>{{$store.getters.donetodos}}</div>-->
 
     <div v-for="(item,key,index) in imgs" :key="index" class="divimg">
-      <img :src="item.hoverURL" alt="风景" />
+      <img :src="item.middleURL" alt="风景" />
     </div>
   </div>
 </template>
@@ -27,9 +27,7 @@ export default {
     select() {}
   },
   mounted() {
-    console.log(data);
     this.imgs = data.data;
-    console.log(this.imgs);
     this.select();
   }
 };
