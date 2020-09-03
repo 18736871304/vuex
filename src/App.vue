@@ -1,19 +1,63 @@
 <template>
   <div id="app">
+    <!--加载页面动画-->
+    <div class="shadow" id="shadow">
+      <div class="loading" id="loading" style="display: none">
+        <span>L</span>
+        <span>o</span>
+        <span>a</span>
+        <span>d</span>
+        <span>i</span>
+        <span>n</span>
+        <span>g</span>
+      </div>
+    </div>
+
     <router-view />
   </div>
 </template>
-
+<script>
+export default {
+  name: "App"
+};
+setTimeout(function() {
+  let loadingDom = document.getElementById("loading");
+  loadingDom.style.display = "block";
+}, 100);
+window.onload = function() {
+  let loadDom = document.getElementById("loading");
+  loadDom.style.display = "none";
+  let shadowDom = document.getElementById("shadow");
+  shadowDom.style.display = "none";
+};
+</script>
 <style >
-
-#app{
-  font-family :Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing :antialiased;
+@import "assets/loadingAnimate.css";
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color :#2c3e50;
+  color: #2c3e50;
   height: 100%;
-  
 }
 
- </style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 1000;
+}
+
+.shadow .loading {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+}
+</style>
