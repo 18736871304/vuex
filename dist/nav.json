@@ -1,0 +1,98 @@
+{
+  "LOGO": {
+      "id": "1",
+      "img": "/imgs/logo.png",
+      "title": "我的管理系统"
+    },
+  "nav": [
+    {
+      "icon": "el-icon-s-platform",
+      "title": "控制台",
+      "child": [
+        {
+          "title": "主控制台",
+          "path": "/welcome"
+        },
+        {
+          "title": "个人档案",
+          "path": "/profile"
+        }
+      ]
+    },
+    {
+      "icon": "el-icon-setting",
+      "title": "基础设置",
+      "child": [
+        {
+          "title": "设置导航",
+          "path": "/nav"
+        },
+        {
+          "title": "设置个人信息",
+          "path": "/mineInfo"
+        },
+        {
+          "title": "修改密码",
+          "path": "/updatePass"
+        }
+      ]
+    },
+    {
+      "icon": "el-icon-coin",
+      "title": "文章分类",
+      "child": [
+        {
+          "title": "富文本编辑器",
+          "path": "/quillEditor"
+        },
+        {
+          "title": "文章管理",
+          "path": "/articleManager"
+        }
+      ]
+    },
+    {
+      "icon": "el-icon-chat-line-square",
+      "title": "留言管理",
+      "path": "/mail"
+    },
+    {
+      "icon": "el-icon-coin",
+      "title": "基础演示",
+      "path": "/base",
+      "child": [
+        {
+          "title": "滑块",
+          "path": "/slider"
+        },
+        {
+          "title": "文件上传",
+          "path": "/uploadFile"
+        },
+        {
+          "title": "卡片列表",
+          "path": "/cardList"
+        },
+        {
+          "title": "图片瀑布屏",
+          "path": "/waterfall"
+        },
+        {
+          "title": "步骤条（流程条）",
+          "path": "/steps"
+        }
+      ]
+    },
+    {
+      "icon": "el-icon-error",
+      "title": "错误页面",
+      "path": "/error",
+      "child": [
+        {
+          "title": "404页面",
+          "path": "/404"
+        }
+      ]
+    }
+  ]
+}
