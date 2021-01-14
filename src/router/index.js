@@ -29,13 +29,6 @@ const routes = [
     },
     component: () => import("../views/login.vue"),
   },
-
-  // {
-  //   path: "/",
-  //   redirect: '/home',
-  // },
-
-
   {
     path: "/home",
     redirect: '/welcome',
@@ -96,7 +89,10 @@ const routes = [
         path: '/steps',
         component: () => import("../views/steps.vue"),
       },
-
+      {
+        path: '/echarts',
+        component: () => import("../views/echarts.vue"),
+      }
 
     ]
   },

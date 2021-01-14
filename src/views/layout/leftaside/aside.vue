@@ -74,7 +74,7 @@ export default {
     console.log(this.getDoubleOpen)
     //获得导航的json数据
     Axios({
-      url: "https://18736871304.github.io/wei/dist/nav.json",
+      url: "https://18736871304.github.io/vuex/dist/nav.json",
       method: "get"
     }).then(res => {
       //把导航数据存入vuex中

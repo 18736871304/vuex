@@ -39,19 +39,6 @@ router.afterEach( () => {
   NProgress.done()
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 new Vue({
   router,
   store,
