@@ -84,6 +84,12 @@
       ]
     },
     {
+      "icon": "el-icon-chat-line-square",
+      "title": "大数据后台",
+      "path": "/echarts"
+    },
+
+    {
       "icon": "el-icon-error",
       "title": "错误页面",
       "path": "/error",
