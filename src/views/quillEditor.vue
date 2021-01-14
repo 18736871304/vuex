@@ -1,107 +1,125 @@
 <template>
-  <div>
-    <el-row class="warp">
- 
-      <!--
-Form 组件提供了表单验证的功能，只需要通过 rule 属性传入约定的验证规则，并 Form-Item 的 prop 属性设置为需校验的字段名即可。具体可以参考官网：http://element.eleme.io/#/zh-CN/component/form
--->
-      <el-col :span="24" class="warp-main">
-        <el-form
-          ref="infoForm"
-          :model="infoForm"
-          :rules="rules"
-          label-width="120px"
-        >
-          <el-form-item label="标题" prop="a_title">
-            <el-input v-model="infoForm.a_title"></el-input>
-          </el-form-item>
-
-          <el-form-item label="来源" prop="a_source">
-            <el-input v-model="infoForm.a_source"></el-input>
-          </el-form-item>
-          <!--使用编辑器 -->
-          <el-form-item label="详细">
-            <div class="edit_container">
-              <quillEditor
-                v-model="infoForm.a_content"
-                ref="myQuillEditor"
-                class="editer"
-                :options="editorOption"
-                @ready="onEditorReady($event)"
-              >
-              </quillEditor>
-            </div>
-          </el-form-item>
-
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">确认提交</el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
-    </el-row>
+  <div class="example">
+    <quill-editor
+      class="editor"
+      ref="myTextEditor"
+      :value="content"
+      :options="editorOption"
+      @change="onEditorChange"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @ready="onEditorReady($event)"
+    />
+    <div class="output code">
+      <code class="hljs" v-html="contentCode"></code>
+    </div>
+    <div class="output ql-snow">
+      <div class="ql-editor" v-html="content"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import { quillEditor } from 'vue-quill-editor' //调用编辑器
+import dedent from "dedent";
+import hljs from "highlight.js";
+import debounce from "lodash/debounce";
+import { quillEditor } from "vue-quill-editor";
+
+// highlight.js style
+import "highlight.js/styles/tomorrow.css";
+
+// import theme style
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 export default {
+  name: "quill-example-snow",
+  title: "Theme: snow",
+  components: {
+    quillEditor,
+  },
   data() {
     return {
-      infoForm: {
-        a_title: "",
-        a_source: "",
-        a_content: "",
-        editorOption: {},
+      editorOption: {
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote", "code-block"],
+            [{ header: 1 }, { header: 2 }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ script: "sub" }, { script: "super" }],
+            [{ indent: "-1" }, { indent: "+1" }],
+            [{ direction: "rtl" }],
+            [{ size: ["small", false, "large", "huge"] }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ font: [] }],
+            [{ color: [] }, { background: [] }],
+            [{ align: [] }],
+            ["clean"],
+            ["link", "image", "video"],
+          ],
+          syntax: {
+            highlight: (text) => hljs.highlightAuto(text).value,
+          },
+        },
       },
-      //表单验证
-      rules: {
-        a_title: [{ required: true, message: "请输入标题", trigger: "blur" }],
-        a_content: [
-          { required: true, message: "请输入详细内容", trigger: "blur" },
-        ],
-      },
+      content: dedent`  `,
     };
+  },
+  methods: {
+    onEditorChange: debounce(function(value) {
+      this.content = value.html;
+    }, 466),
+    onEditorBlur(editor) {
+      // console.log("editor blur!", editor);
+    },
+    onEditorFocus(editor) {
+      // console.log("editor focus!", editor);
+    },
+    onEditorReady(editor) {
+      // console.log("editor ready!", editor);
+    },
   },
   computed: {
     editor() {
-      return this.$refs.myQuillEditor.quill;
+      return this.$refs.myTextEditor.quill;
     },
-
+    contentCode() {
+      return hljs.highlightAuto(this.content).value;
+    },
   },
   mounted() {
-    //初始化
-  },
-  methods: {
-    onEditorReady(editor) {},
-    onSubmit() {
-      //提交
-      //this.$refs.infoForm.validate，这是表单验证
-      this.$refs.infoForm.validate((valid) => {
-        if (valid) {
-          this.$post("m/add/about/us", this.infoForm).then((res) => {
-            if (res.errCode == 200) {
-              this.$message({
-                message: res.errMsg,
-                type: "success",
-              });
-              this.$router.push("/aboutus/aboutlist");
-            } else {
-              this.$message({
-                message: res.errMsg,
-                type: "error",
-              });
-            }
-          });
-        }
-      });
-    },
-    editorOption(){}
-  },
-  components: {
-    //使用编辑器
-    quillEditor,
-    
+    console.log("this is Quill instance:", this.editor);
   },
 };
 </script>
+
+<style>
+.example {
+  display: flex;
+  flex-direction: column;
+}
+.editor {
+  /* min-height: 10rem; */
+  max-height: auto;
+  overflow: hidden;
+}
+
+.output {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border: 1px solid #ccc;
+  overflow-y: auto;
+  resize: vertical;
+}
+.code {
+  padding: 1rem;
+  height: auto;
+  box-sizing: border-box;
+}
+.ql-editor,
+.hljs {
+  min-height: 10rem;
+}
+</style>
