@@ -91,7 +91,7 @@ const routes = [
       },
       {
         path: '/echarts',
-        component: () => import("../views/echarts.vue"),
+        component: () => import("../views/echarts/index.vue"),
       }
 
     ]

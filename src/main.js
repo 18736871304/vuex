@@ -6,14 +6,20 @@ import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios
 Vue.use(ElementUI);
 Vue.use(NProgress)
 
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+Vue.use(Antd);
+
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts; 
 
 
 //全局进度条配置
